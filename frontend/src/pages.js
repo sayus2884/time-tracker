@@ -9,4 +9,9 @@ export default [
     label: "Login",
     componentName: "login",
   },
+  {
+    path: "/signup",
+    label: "Signup",
+    componentName: "signup",
+  },
 ];

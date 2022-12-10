@@ -51,8 +51,12 @@
           './pages/about.riot'
         )),
         Login: lazy(Loader, () => import(
-          /* webpackPrefetch: true, webpackChunkName: 'pages/about' */
+          /* webpackPrefetch: true, webpackChunkName: 'pages/login' */
           './pages/login.riot'
+        )),
+        Signup: lazy(Loader, () => import(
+          /* webpackPrefetch: true, webpackChunkName: 'pages/signup' */
+          './pages/signup.riot'
         )),
       },
       state: {
