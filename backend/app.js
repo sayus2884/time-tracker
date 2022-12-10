@@ -19,6 +19,20 @@ app.get("/projects", (req, res) => {
   res.send(projects);
 });
 
+app.get("/tasks", (req, res) => {
+  const tasks = [
+    {
+      id: 12,
+      description: "Test Project",
+      hours: 5,
+      date: new Date(),
+      projectId: 12,
+    },
+  ];
+
+  res.send(tasks);
+});
+
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);
 });
