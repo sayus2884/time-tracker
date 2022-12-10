@@ -1,13 +1,13 @@
 <app>
-  <div class="container">
+  <div >
     <router>
-      <div if={state.showNotFound} class="row">
-        <div class="column column-60">
+      <div if={state.showNotFound}>
+        <div>
           <not-found />
         </div>
       </div>
-      <div if={!state.showNotFound} class="row">
-        <div class="column column-60">
+      <div if={!state.showNotFound} >
+        <div>
           <route each={page in state.pages} path={page.path}>
             <main is={page.componentName}/>
           </route>
@@ -66,27 +66,4 @@
     }
   </script>
 
-  <style>
-    :host {
-      padding: 2rem 0;
-    }
-
-    .menu {
-      margin: 1rem -1rem;
-    }
-
-    .menu a {
-      padding: 0 1rem;
-      color: black;
-    }
-
-    .menu a.active.active {
-      font-weight: bold;
-      text-decoration: none;
-    }
-
-    .menu a:hover, .menu a:focus, .menu a:active {
-      text-decoration: underline;
-    }
-  </style>
 </app>
