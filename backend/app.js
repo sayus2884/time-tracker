@@ -13,6 +13,12 @@ app.get("/users", (req, res) => {
   res.send(users);
 });
 
+app.get("/projects", (req, res) => {
+  const projects = [{ name: "Test Project", id: 12 }];
+
+  res.send(projects);
+});
+
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);
 });
