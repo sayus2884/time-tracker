@@ -1,16 +1,6 @@
 <app>
   <div class="container">
     <router>
-      <div class="row">
-        <nav class="menu column">
-          <a
-            each={page in state.pages}
-            class={state.activePage === page ? 'active' : '' }
-            href={page.path}>
-            {page.label}
-          </a>
-        </nav>
-      </div>
       <div if={state.showNotFound} class="row">
         <div class="column column-60">
           <not-found />
@@ -21,10 +11,6 @@
           <route each={page in state.pages} path={page.path}>
             <main is={page.componentName}/>
           </route>
-        </div>
-        <!-- notice how <sidebar> is registered as global component -->
-        <div class="column column-40">
-          <sidebar/>
         </div>
       </div>
     </router>
@@ -45,10 +31,6 @@
         Home: lazy(Loader, () => import(
           /* webpackPrefetch: true, webpackChunkName: 'pages/home' */
           './pages/home.riot'
-        )),
-        About: lazy(Loader, () => import(
-          /* webpackPrefetch: true, webpackChunkName: 'pages/about' */
-          './pages/about.riot'
         )),
         Login: lazy(Loader, () => import(
           /* webpackPrefetch: true, webpackChunkName: 'pages/login' */
