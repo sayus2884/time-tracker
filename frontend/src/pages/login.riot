@@ -1,4 +1,25 @@
 <login>
-  <h1>I am the login page</h1>
-  <p>Welcome</p>
+    <div class="flex h-screen items-center justify-center">
+        <div class="border p-12 flex flex-col gap-3 w-[400px] h-[250px]">
+            <h1 class="self-center text-4xl mb-3">Login</h1>
+
+            <label for="username" class="grid">
+            Username
+            <input class="border" type="text" id="username" name="username">
+            </label>
+
+            <div class="grid grid-cols-2 gap-3">
+                <button class="border p-1">Sign up</button>
+                <button class="border p-1" onclick={handleLogin}>Login</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        export default {
+            handleLogin: () => {
+                console.log("Login to application")
+            }
+        }
+    </script>
 </login>
