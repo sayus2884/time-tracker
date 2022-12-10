@@ -1,5 +1,4 @@
-import 'dotenv/config'
-import routes from "./routes";
+import "dotenv/config";
 import cors from "cors";
 
 const express = require("express");
@@ -12,8 +11,6 @@ app.get("/", (req, res) => {
 
 app.use(cors());
 
-app.use("/", routes);
-
 app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`)
-})
+  console.log(`Example app listening on port ${port}`);
+});
