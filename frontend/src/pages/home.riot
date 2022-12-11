@@ -28,7 +28,7 @@
     </form>
 
     <ul>
-      <li>
+      <li each={task in state.tasks}>
         <div class="border p-3 grid gap-2 ">
           <p>this is a task</p>
 
@@ -71,13 +71,18 @@
 
       
       async onBeforeMount() {
+        // Fetch projects
+        const projectsResponse = await fetch("http://localhost:8080/projects");
+        const projects = await projectsResponse.json();
 
-        const response = await fetch("http://localhost:8080/projects");
-        const projects = await response.json();
+        // Fetch tasks
+        const tasksResponse = await fetch("http://localhost:8080/tasks");
+        const tasks = await tasksResponse.json();
 
         this.update({
           projects,
-          currentProjectId: projects[0]._id
+          currentProjectId: projects[0]._id,
+          tasks
         });
       },
 
