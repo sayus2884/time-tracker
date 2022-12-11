@@ -12,13 +12,49 @@
                 <button class="border p-1">Sign up</button>
                 <button class="border p-1" onclick={handleLogin}>Login</button>
             </div>
+            <p if={state.loginError}>{state.loginError}</p>
         </div>
     </div>
 
     <script>
+        import { router } from '@riotjs/route'
+
         export default {
-            handleLogin: () => {
-                console.log("Login to application")
+            onUnmounted(){
+                this.update({
+                    loginError: ""
+                })
+            },
+
+            async handleLogin(event) {
+
+
+                const username = document.getElementById("username").value
+
+                const response = await fetch("http://localhost:8080/auth/login", {
+                    method: "POST",
+                    headers: {
+                    'Content-Type': 'application/json;charset=utf-8'
+                    },
+                    body: JSON.stringify({
+                        username
+                    })
+                })
+
+                const user = await response.json()
+                
+                // Show message response if there is an error message
+                if(user.message){
+                    return this.update({
+                        loginError: user.message
+                    })
+                }
+
+                this.update({
+                    user
+                })
+
+                router.push('/')
             }
         }
     </script>
