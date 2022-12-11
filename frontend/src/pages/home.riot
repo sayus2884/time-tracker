@@ -44,6 +44,7 @@
 
   <script>
     import store from "../store"
+    import {router} from "@riotjs/route"
 
     export default {
       shared: ['user'],
@@ -58,19 +59,15 @@
           name: ""
         }
       },
-
-      onMounted(){
+      
+      async onBeforeMount() {
         store.install(this)
         const user = this.user
 
-        console.log(user)
-        this.update({
-          user
-        })
-      },
+        if(!user) {
+          router.push("/login")
+        }
 
-      
-      async onBeforeMount() {
         // Fetch projects
         const projectsResponse = await fetch("http://localhost:8080/projects");
         const projects = await projectsResponse.json();
@@ -79,9 +76,8 @@
         const tasksResponse = await fetch("http://localhost:8080/tasks");
         const tasks = await tasksResponse.json();
 
-        console.log(tasks)
-
         this.update({
+          user,
           projects,
           currentProjectId: projects[0]._id,
           tasks,
