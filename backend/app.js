@@ -12,19 +12,7 @@ app.use("/users", routes.users);
 
 app.use("/projects", routes.projects);
 
-app.get("/tasks", (req, res) => {
-  const tasks = [
-    {
-      id: 12,
-      description: "Test Project",
-      hours: 5,
-      date: new Date(),
-      projectId: 12,
-    },
-  ];
-
-  res.send(tasks);
-});
+app.use("/tasks", routes.tasks);
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);
