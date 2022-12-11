@@ -27,7 +27,7 @@
       <button class="p-1 border px-5" type="submit">Add</button>
     </form>
 
-    <ul class="grid gap-3">
+    <ul class="grid md:grid-cols-2 lg:grid-cols-4 gap-3">
       <li each={task in state.tasks}>
         <div class="border p-3 grid gap-2 ">
           <p>{task.description}</p>
