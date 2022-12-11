@@ -30,7 +30,7 @@
     <ul class="grid gap-3">
       <li each={task in state.tasks}>
         <div class="border p-3 grid gap-2 ">
-          <p>this is a task</p>
+          <p>{task.description}</p>
 
           <div class="flex justify-between items-center">
             <p>Date</p>
@@ -104,7 +104,11 @@
         })
         const createdTask = await response.json()
 
-
+        this.update({
+          tasks: [createdTask, ...this.state.tasks],
+          description: "",
+          hours: ""
+        })
       },
 
       handleChange(event) {
