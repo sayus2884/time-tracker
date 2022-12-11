@@ -33,7 +33,7 @@
           <p>{task.description}</p>
 
           <div class="flex justify-between items-center">
-            <p>Date</p>
+            <p>{ new Date(task.createdAt).toLocaleDateString("en-US", dateOptions)}</p>
 
             <button class="border p-1">delete</button>
           </div>
@@ -46,7 +46,10 @@
     import store from "../store"
     import {router} from "@riotjs/route"
 
+    const dateOptions = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+
     export default {
+      dateOptions,
       shared: ['user'],
 
       state: {
