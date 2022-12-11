@@ -16,6 +16,7 @@ export const insertTask = async (task) => {
 
   if (!task.description) throw new Error("task.description is required.");
   if (!task.hours) throw new Error("task.hours is required.");
+  if (!task.projectId) throw new Error("task.projectId is required.");
   if (!task.userId) throw new Error("task.userId is required.");
 
   const newTask = db

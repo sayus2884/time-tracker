@@ -10,8 +10,8 @@ router.get("/", async (req, res) => {
 });
 
 router.post("/", async (req, res, next) => {
-  const { description, hours, userId } = req.body;
-  const task = { description, hours, userId };
+  const { description, hours, userId, projectId } = req.body;
+  const task = { description, hours, userId, projectId };
 
   try {
     const newTask = await insertTask(task);
