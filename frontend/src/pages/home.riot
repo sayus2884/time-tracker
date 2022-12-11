@@ -15,7 +15,7 @@
 
   <div class="grid p-3 gap-3">
     <h2>
-      Total time: <span>{state.totalHours} hours</span>
+      Hello {state.user.name}. You've worked on the project for <span>{" " + state.totalHours} hours</span>
     </h2>
 
     <form class="flex gap-3" onsubmit={handleSubmit}>
@@ -43,22 +43,40 @@
   </div>
 
   <script>
+    import store from "../store"
+
     export default {
+      shared: ['user'],
+
+      onMounted(){
+        store.install(this)
+        const user = this.user
+
+        console.log(user)
+        this.update({
+          user
+        })
+      },
+
       state: {
         projects: [],
         totalHours: 15,
         hours: "",
-        description: "",
+        user: {
+          name: ""
+        }
       },
       async onBeforeMount() {
         const response = await fetch("http://localhost:8080/projects");
         const projects = await response.json();
-    
-        this.state.projects = projects;
-        this.update();
+
+        this.update({
+          projects
+        });
       },
 
       handleSubmit(event){
+
         event.preventDefault()
         const { description, hours} = this.state
 

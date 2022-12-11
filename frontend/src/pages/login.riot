@@ -18,8 +18,14 @@
 
     <script>
         import { router } from '@riotjs/route'
+        import store from "../store"
 
         export default {
+            onMounted(){
+                store.install(this)
+                this.update()
+            },
+
             onUnmounted(){
                 this.update({
                     loginError: ""
@@ -27,7 +33,6 @@
             },
 
             async handleLogin(event) {
-
 
                 const username = document.getElementById("username").value
 
@@ -50,9 +55,7 @@
                     })
                 }
 
-                this.update({
-                    user
-                })
+                store.dispatch('setUser', user)
 
                 router.push('/')
             }
