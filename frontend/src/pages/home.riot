@@ -52,7 +52,7 @@
         projects: [],
         tasks: [],
         currentProjectId: "",
-        totalHours: 15,
+        totalHours: 0,
         hours: "",
         user: {
           name: ""
@@ -79,10 +79,15 @@
         const tasksResponse = await fetch("http://localhost:8080/tasks");
         const tasks = await tasksResponse.json();
 
+        console.log(tasks)
+
         this.update({
           projects,
           currentProjectId: projects[0]._id,
-          tasks
+          tasks,
+          totalHours: tasks.reduce((totalhours, task) => {
+            return totalhours + parseInt(task.hours)
+          }, 0)
         });
       },
 
