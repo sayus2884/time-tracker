@@ -18,7 +18,6 @@ router.post("/", async (req, res, next) => {
 
     res.json(newTask);
   } catch (error) {
-    // res.status(500).send({ message: error.message });
     next(error);
   }
 });
