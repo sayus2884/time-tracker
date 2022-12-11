@@ -10,11 +10,7 @@ app.use(cors());
 
 app.use("/users", routes.users);
 
-app.get("/projects", (req, res) => {
-  const projects = [{ name: "Test Project", id: 12 }];
-
-  res.send(projects);
-});
+app.use("/projects", routes.projects);
 
 app.get("/tasks", (req, res) => {
   const tasks = [
