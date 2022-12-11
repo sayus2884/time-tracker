@@ -2,11 +2,16 @@ import { getDatabase } from "./mongo";
 
 const collectionName = "Tasks";
 
-export const getTasks = async () => {
+export const getTasks = async (selector = {}) => {
   const db = await getDatabase();
-  const selector = {};
 
-  const tasks = await db.collection(collectionName).find(selector).toArray();
+  const tasks = await db
+    .collection(collectionName)
+    .find(selector)
+    .sort({
+      createdAt: -1,
+    })
+    .toArray();
 
   return tasks;
 };

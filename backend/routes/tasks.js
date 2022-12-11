@@ -5,7 +5,11 @@ const router = Router();
 
 // Get all tasks
 router.get("/", async (req, res) => {
-  const tasks = await getTasks();
+  const { projectId } = req.query;
+
+  const selector = { projectId };
+
+  const tasks = await getTasks(selector);
 
   res.send(tasks);
 });
