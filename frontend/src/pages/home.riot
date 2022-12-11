@@ -1,8 +1,8 @@
 <home>
   <div class="border-b flex p-3">
     <div class="grow">
-      <select name="projects" id="projects">
-        <option each={project in state.projects} value="test">
+      <select name="projects" id="projects" onchange={handleProjectSelect}>
+        <option each={project in state.projects} value={project._id}>
           {project.name}
         </option>
       </select>
@@ -118,6 +118,23 @@
       handleChange(event) {
         this.update({
           [event.target.id]: event.target.value
+        })
+      },
+
+      async handleProjectSelect(event){
+        const projectId = event.target.value 
+
+        // Fetch tasks
+        const tasksResponse = await fetch("http://localhost:8080/tasks?" + new URLSearchParams({
+          projectId
+        }));
+
+        const tasks = await tasksResponse.json();
+
+        console.log(tasks)
+
+        this.update({
+          tasks
         })
       }
     };
