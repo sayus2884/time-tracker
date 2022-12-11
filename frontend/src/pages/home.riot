@@ -18,14 +18,14 @@
       Total time: <span>{state.totalHours} hours</span>
     </h2>
 
-    <div class="flex gap-3">
-      <input class="p-1 border grow" type="text" />
+    <form class="flex gap-3" onsubmit={handleSubmit}>
+      <input class="p-1 border grow" onkeyup={handleChange} type="text" id="description" name="description" value={state.description} required/>
       <div class="p-1 border">
-        <input type="number" />
+        <input onkeyup={handleChange} type="number" id="hours" name="hours" value={state.hours} required/>
         <span>hours</span>
       </div>
-      <button class="p-1 border px-5">Add</button>
-    </div>
+      <button class="p-1 border px-5" type="submit">Add</button>
+    </form>
 
     <ul>
       <li>
@@ -47,6 +47,8 @@
       state: {
         projects: [],
         totalHours: 15,
+        hours: "",
+        description: "",
       },
       async onBeforeMount() {
         const response = await fetch("http://localhost:8080/projects");
@@ -55,6 +57,20 @@
         this.state.projects = projects;
         this.update();
       },
+
+      handleSubmit(event){
+        event.preventDefault()
+        const { description, hours} = this.state
+
+        console.log("description", description)
+        console.log("hours", hours)
+      },
+
+      handleChange(event) {
+        this.update({
+          [event.target.id]: event.target.value
+        })
+      }
     };
 
   </script>
