@@ -48,6 +48,17 @@
     export default {
       shared: ['user'],
 
+      state: {
+        projects: [],
+        tasks: [],
+        currentProjectId: "",
+        totalHours: 15,
+        hours: "",
+        user: {
+          name: ""
+        }
+      },
+
       onMounted(){
         store.install(this)
         const user = this.user
@@ -58,30 +69,37 @@
         })
       },
 
-      state: {
-        projects: [],
-        totalHours: 15,
-        hours: "",
-        user: {
-          name: ""
-        }
-      },
+      
       async onBeforeMount() {
+
         const response = await fetch("http://localhost:8080/projects");
         const projects = await response.json();
 
         this.update({
-          projects
+          projects,
+          currentProjectId: projects[0]._id
         });
       },
 
-      handleSubmit(event){
+      async handleSubmit(event){
 
         event.preventDefault()
-        const { description, hours} = this.state
+        const { description, hours, user, currentProjectId} = this.state
+        const newTask = {
+          description, hours, userId: user._id, projectId: currentProjectId  
+        }
 
-        console.log("description", description)
-        console.log("hours", hours)
+
+        const response = await fetch("http://localhost:8080/tasks", {
+            method: "POST",
+            headers: {
+            'Content-Type': 'application/json;charset=utf-8'
+            },
+            body: JSON.stringify(newTask)
+        })
+        const createdTask = await response.json()
+
+
       },
 
       handleChange(event) {
