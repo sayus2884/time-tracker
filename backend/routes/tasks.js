@@ -1,17 +1,10 @@
 import { Router } from "express";
+import { getTasks } from "../db/Tasks";
 
 const router = Router();
 
-router.get("/", (req, res) => {
-  const tasks = [
-    {
-      id: 12,
-      description: "Test Project",
-      hours: 5,
-      date: new Date(),
-      projectId: 12,
-    },
-  ];
+router.get("/", async (req, res) => {
+  const tasks = await getTasks();
 
   res.send(tasks);
 });
