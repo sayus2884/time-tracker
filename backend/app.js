@@ -21,6 +21,10 @@ app.use("/projects", routes.projects);
 
 app.use("/tasks", routes.tasks);
 
+app.use((error, req, res, next) => {
+  if (error.stack) res.status(500).send({ message: error.message });
+});
+
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);
 });

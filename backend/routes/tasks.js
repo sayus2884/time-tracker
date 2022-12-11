@@ -9,7 +9,7 @@ router.get("/", async (req, res) => {
   res.send(tasks);
 });
 
-router.post("/", async (req, res) => {
+router.post("/", async (req, res, next) => {
   const { description, hours, userId } = req.body;
   const task = { description, hours, userId };
 
@@ -18,7 +18,8 @@ router.post("/", async (req, res) => {
 
     res.json(newTask);
   } catch (error) {
-    res.status(500).send({ message: error.message });
+    // res.status(500).send({ message: error.message });
+    next(error);
   }
 });
 
