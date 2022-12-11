@@ -3,6 +3,7 @@ import { getUserByName } from "../db/Users";
 
 const router = Router();
 
+// Login just by name; no password needed
 router.post("/login", async (req, res, next) => {
   try {
     const { name } = req.body;

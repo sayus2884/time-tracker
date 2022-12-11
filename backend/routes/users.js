@@ -3,6 +3,7 @@ import { getUsers } from "../db/Users";
 
 const router = Router();
 
+// Get all users
 router.get("/", async (req, res) => {
   const users = await getUsers();
 
