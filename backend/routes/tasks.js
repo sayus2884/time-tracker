@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { getTasks, insertTask } from "../db/Tasks";
+import { getTasks, insertTask, deleteTask } from "../db/Tasks";
 
 const router = Router();
 
@@ -14,7 +14,6 @@ router.get("/", async (req, res) => {
   res.send(tasks);
 });
 
-
 // Insert new task
 router.post("/", async (req, res, next) => {
   const { description, hours, userId, projectId } = req.body;
@@ -24,6 +23,19 @@ router.post("/", async (req, res, next) => {
     const newTask = await insertTask(task);
 
     res.json(newTask);
+  } catch (error) {
+    next(error);
+  }
+});
+
+// Delete task by id
+router.delete("/:taskId", async (req, res, next) => {
+  try {
+    const { taskId } = req.params;
+
+    const tbdTask = await deleteTask(taskId);
+
+    res.json(tbdTask);
   } catch (error) {
     next(error);
   }
