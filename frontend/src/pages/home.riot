@@ -47,6 +47,11 @@
     import {router} from "@riotjs/route"
 
     const dateOptions = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+    const calculateTotalHours = (tasks) => {
+      return tasks.reduce((totalhours, task) => {
+            return totalhours + parseInt(task.hours)
+          }, 0)
+    }
 
     export default {
       dateOptions,
@@ -84,9 +89,7 @@
           projects,
           currentProjectId: projects[0]._id,
           tasks,
-          totalHours: tasks.reduce((totalhours, task) => {
-            return totalhours + parseInt(task.hours)
-          }, 0)
+          totalHours: calculateTotalHours(tasks)
         });
       },
 
@@ -131,12 +134,11 @@
 
         const tasks = await tasksResponse.json();
 
-        console.log(tasks)
-
         this.update({
-          tasks
+          tasks,
+          totalHours: calculateTotalHours(tasks)
         })
-      }
+      },
     };
 
   </script>
