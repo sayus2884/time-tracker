@@ -1,12 +1,10 @@
 import { Router } from "express";
+import { getProjects } from "../db/Projects";
 
 const router = Router();
 
-router.get("/", (req, res) => {
-  const projects = [
-    { name: "Test Project 1", id: 12 },
-    { name: "Test Project 2", id: 123 },
-  ];
+router.get("/", async (req, res) => {
+  const projects = await getProjects();
 
   res.send(projects);
 });
