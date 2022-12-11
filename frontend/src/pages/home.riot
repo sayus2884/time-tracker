@@ -79,9 +79,12 @@
         // Fetch projects
         const projectsResponse = await fetch("http://localhost:8080/projects");
         const projects = await projectsResponse.json();
+        const currentProjectId = projects[0]._id
 
         // Fetch tasks
-        const tasksResponse = await fetch("http://localhost:8080/tasks");
+        const tasksResponse = await fetch("http://localhost:8080/tasks?"+ new URLSearchParams({
+          projectId: currentProjectId
+        }));
         const tasks = await tasksResponse.json();
 
         this.update({
@@ -127,6 +130,9 @@
       async handleProjectSelect(event){
         const projectId = event.target.value 
 
+        console.log(projectId)
+
+
         // Fetch tasks
         const tasksResponse = await fetch("http://localhost:8080/tasks?" + new URLSearchParams({
           projectId
@@ -135,6 +141,7 @@
         const tasks = await tasksResponse.json();
 
         this.update({
+          currentProjectId: projectId,
           tasks,
           totalHours: calculateTotalHours(tasks)
         })
