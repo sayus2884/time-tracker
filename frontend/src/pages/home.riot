@@ -1,4 +1,23 @@
 <home>
-  <h1>I am the home page</h1>
-  <p>Welcome</p>
+
+  <select name="projects" id="projects">
+    <option each={project in state.projects} value="test">{project.name}</option>
+  </select>
+
+  
+  <script>
+  export default {
+    state: {
+      projects: []
+    },
+    async onBeforeMount() {
+      const response = await fetch("http://localhost:8080/projects");
+      const projects = await response.json()
+
+      this.state.projects = projects
+      this.update()
+    }
+  }
+
+  </script>
 </home>
