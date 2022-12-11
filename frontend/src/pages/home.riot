@@ -35,7 +35,7 @@
           <div class="flex justify-between items-center">
             <p>{ new Date(task.createdAt).toLocaleDateString("en-US", dateOptions)}</p>
 
-            <button class="border p-1">delete</button>
+            <button class="border p-1" onclick={() => handleTaskDelete(task._id)}>delete</button>
           </div>
         </div>
       </li>
@@ -113,12 +113,33 @@
             body: JSON.stringify(newTask)
         })
         const createdTask = await response.json()
+        const newTasks = [createdTask, ...this.state.tasks]
 
         this.update({
-          tasks: [createdTask, ...this.state.tasks],
+          tasks: newTasks,
+          totalHours: calculateTotalHours(newTasks),
           description: "",
           hours: ""
         })
+      },
+
+      async handleTaskDelete(taskId){
+        const response = await fetch(`http://localhost:8080/tasks/${taskId}`, {
+            method: "DELETE"
+        })
+
+        const data = await response.json()
+
+        if(data.deleted) {
+          const newTasks = this.state.tasks.filter((task) => {
+            return task._id !== taskId
+          })
+
+          this.update({
+            tasks: newTasks,
+            totalHours: calculateTotalHours(newTasks)
+          })
+        }
       },
 
       handleChange(event) {
@@ -129,9 +150,6 @@
 
       async handleProjectSelect(event){
         const projectId = event.target.value 
-
-        console.log(projectId)
-
 
         // Fetch tasks
         const tasksResponse = await fetch("http://localhost:8080/tasks?" + new URLSearchParams({
