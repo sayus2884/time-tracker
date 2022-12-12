@@ -21,3 +21,18 @@ export const getUserByName = async (username) => {
 
   return users;
 };
+
+export const insertUser = async (username) => {
+  const db = await getDatabase();
+
+  if (!username) throw new Error("username is required.");
+
+  const newUser = db
+    .collection(collectionName)
+    .insertOne({
+      username,
+    })
+    .then((res) => db.collection(collectionName).findOne({ _id: res.insertedId }));
+
+  return newUser;
+};
