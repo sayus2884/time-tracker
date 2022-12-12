@@ -21,7 +21,11 @@
           <p>{task.description}</p>
 
           <div class="flex justify-between items-center">
-            <p class="text-sm text-gray-400">{ new Date(task.createdAt).toLocaleDateString("en-US", dateOptions)} ({task.hours} hours)</p>
+            <div class="grid">
+              <p class="text-sm">Worked for {task.hours} hours</p>
+              <p class="text-xs text-gray-400">{ new Date(task.createdAt).toLocaleDateString("en-US", dateOptions)}</p>
+            </div>
+
 
             <button class="border p-1 px-2 text-sm bg-gray-50" onclick={() => handleTaskDelete(task._id)}>delete</button>
           </div>
@@ -34,7 +38,7 @@
     import store from "../store"
     import {router} from "@riotjs/route"
 
-    const dateOptions = { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric' };
+    const dateOptions = { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric', hour:"numeric", minute:"numeric" };
     const calculateTotalHours = (tasks) => {
       return tasks.reduce((totalhours, task) => {
             return totalhours + parseInt(task.hours)
