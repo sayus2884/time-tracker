@@ -6,13 +6,13 @@
             <label for="username" class="grid">
             Username
             <input class="border p-1" type="text" id="username" name="username">
+            <p if={state.loginError} class="text-sm text-red-500">{state.loginError}</p>
             </label>
 
             <div class="flex flex-col items-center gap-3">
                 <button class="border p-2 px-5" onclick={handleLogin}>Login</button>
                 <a href="/signup" class="underline text-sm">Create a new account</a>
             </div>
-            <p if={state.loginError}>{state.loginError}</p>
         </form>
     </div>
 
@@ -37,6 +37,12 @@
                 event.preventDefault()
 
                 const username = document.getElementById("username").value
+
+                if(username.length === 0) {
+                    return this.update({
+                        loginError: "Username must not be empty."
+                    }) 
+                }
 
                 const response = await fetch("http://localhost:8080/auth/login", {
                     method: "POST",
