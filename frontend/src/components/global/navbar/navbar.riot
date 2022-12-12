@@ -1,0 +1,15 @@
+<navbar>
+  <div class="border-b flex p-3">
+    <div class="grow">
+      <select class="border p-1" name="projects" id="projects" onchange={props.handleProjectSelect}>
+        <option each={project in props.projects} value={project._id}>
+          {project.name}
+        </option>
+      </select>
+    </div>
+
+    <nav>
+      <a href="/login">Logout</a>
+    </nav>
+  </div>
+</navbar>
