@@ -1,6 +1,6 @@
 <signup>
   <div class="flex h-screen items-center justify-center">
-        <div class="border p-12 flex flex-col gap-3 w-[400px] min-h-[250px]">
+        <form class="border p-12 flex flex-col gap-3 w-[400px] min-h-[250px]" onsubmit={handleSignup}>
             <h1 class="self-center text-4xl mb-3">Sign up</h1>
 
             <label for="username" class="grid">
@@ -17,7 +17,7 @@
                 <button class="border p-2 px-5" onclick={handleSignup}>Sign up</button>
                 <a href="/login" class="underline text-sm">Aleady have an account</a>
             </div>
-        </div>
+        </form>
     </div>
 
     <script>
@@ -26,6 +26,8 @@
 
         export default {
             async handleSignup(event) {
+
+                event.preventDefault()
 
                 const username = document.getElementById("username").value
 
