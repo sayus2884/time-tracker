@@ -1,6 +1,6 @@
 <login>
     <div class="flex h-screen items-center justify-center">
-        <div class="border p-12 flex flex-col gap-3 w-[400px] h-[250px]">
+        <form class="border p-12 flex flex-col gap-3 w-[400px] h-[250px]" onsubmit={handleLogin}>
             <h1 class="self-center text-4xl mb-3">Login</h1>
 
             <label for="username" class="grid">
@@ -13,7 +13,7 @@
                 <button class="border p-1" onclick={handleLogin}>Login</button>
             </div>
             <p if={state.loginError}>{state.loginError}</p>
-        </div>
+        </form>
     </div>
 
     <script>
@@ -33,6 +33,8 @@
             },
 
             async handleLogin(event) {
+
+                event.preventDefault()
 
                 const username = document.getElementById("username").value
 
