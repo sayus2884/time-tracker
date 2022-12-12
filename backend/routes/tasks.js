@@ -5,9 +5,9 @@ const router = Router();
 
 // Get all tasks
 router.get("/", async (req, res) => {
-  const { projectId } = req.query;
+  const { projectId, userId } = req.query;
 
-  const selector = { projectId };
+  const selector = { projectId, userId };
 
   const tasks = await getTasks(selector);
 
