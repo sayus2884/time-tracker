@@ -15,7 +15,7 @@ export const getUserByName = async (username) => {
   if (!username) throw new Error("username is required.");
 
   const db = await getDatabase();
-  const selector = { name: username };
+  const selector = { username: username };
 
   const users = await db.collection(collectionName).findOne(selector);
 
