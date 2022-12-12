@@ -1,62 +1,68 @@
 <signup>
   <div class="flex h-screen items-center justify-center">
-        <form class="border p-12 flex flex-col gap-3 w-[450px] min-h-[250px]" onsubmit={handleSignup}>
-            <h1 class="self-center text-4xl mb-3">Create New Account</h1>
+    <form class="border p-12 flex flex-col gap-3 w-[450px] min-h-[250px]" onsubmit={handleSignup}>
+      <h1 class="self-center text-4xl mb-3">Create New Account</h1>
 
-            <label for="username" class="grid">
-            Username
-            <input class="border p-1" type="text" id="username" name="username" required>
-            <p if={state.signupError} class="text-sm text-red-500">{state.signupError}</p>
-            </label>
+      <label for="username" class="grid">
+        Username
+        <input class="border p-1" type="text" id="username" name="username" required />
+        <p if={state.signupError} class="text-sm text-red-500">
+          {state.signupError}
+        </p>
+      </label>
 
+      <div class="flex flex-col items-center gap-3">
+        <button class="border p-2 px-5" onclick={handleSignup}>
+          Sign up
+        </button>
+        <a href="/login" class="underline text-sm">
+          Aleady have an account
+        </a>
+      </div>
+    </form>
+  </div>
 
-            <div class="flex flex-col items-center gap-3">
-                <button class="border p-2 px-5" onclick={handleSignup}>Sign up</button>
-                <a href="/login" class="underline text-sm">Aleady have an account</a>
-            </div>
-        </form>
-    </div>
+  <script>
 
-    <script>
-        import { router } from '@riotjs/route'
-        import store from "../store"
-
-        export default {
-            async handleSignup(event) {
-
-                event.preventDefault()
-
-                const username = document.getElementById("username").value
-
-                if(username.length === 0) {
-                    return this.update({
-                        signupError: "Username must not be empty"
-                    })
-                }
-
-                const response = await fetch("http://localhost:8080/users", {
-                    method: "POST",
-                    headers: {
-                    'Content-Type': 'application/json;charset=utf-8'
-                    },
-                    body: JSON.stringify({
-                        username
-                    })
-                })
-
-                const user = await response.json()
-
-                // Show message response if there is an error message
-                if(user.message){
-                    return this.update({
-                        signupError: user.message
-                    })
-                }
-
-                store.dispatch('setUser', user)
-
-                router.push('/')
-            }
+    import { router } from "@riotjs/route";
+    import store from "../store";
+    
+    export default {
+        async handleSignup(event) {
+        event.preventDefault();
+    
+        const username = document.getElementById("username").value;
+    
+        if (username.length === 0) {
+            return this.update({
+            signupError: "Username must not be empty",
+            });
         }
-    </script>
+    
+        const response = await fetch("http://localhost:8080/users", {
+            method: "POST",
+            headers: {
+            "Content-Type": "application/json;charset=utf-8",
+            },
+            body: JSON.stringify({
+            username,
+            }),
+        });
+    
+        const user = await response.json();
+    
+        // Show message response if there is an error message
+        if (user.message) {
+            return this.update({
+            signupError: user.message,
+            });
+        }
+    
+        store.dispatch("setUser", user);
+    
+        router.push("/");
+        },
+    };
+
+  </script>
 </signup>
