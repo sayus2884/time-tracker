@@ -13,7 +13,7 @@ npm install
 npm run start
 ```
 
-create an `.env` file inside the folder and add the following to access the database.
+create an `.env` file inside the `./backend` folder and add the following to access the database.
 
 ```
 MONGODB_URI=<Ask-for-the-connection-string>
