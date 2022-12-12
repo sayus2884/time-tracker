@@ -1,5 +1,7 @@
 # Time Tracker
 
+Keep track of the amount of time you spent on your projects.
+
 ### Quickstart
 
 #### Serving backend server
