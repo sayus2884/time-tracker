@@ -71,7 +71,8 @@
 
         // Fetch tasks
         const tasksResponse = await fetch("http://localhost:8080/tasks?"+ new URLSearchParams({
-          projectId: currentProjectId
+          projectId: currentProjectId,
+          userId: user._id
         }));
         const tasks = await tasksResponse.json();
 
@@ -141,7 +142,8 @@
 
         // Fetch tasks
         const tasksResponse = await fetch("http://localhost:8080/tasks?" + new URLSearchParams({
-          projectId
+          projectId,
+          userId: this.state.user._id
         }));
 
         const tasks = await tasksResponse.json();
